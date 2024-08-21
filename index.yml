@@ -1,0 +1,23 @@
+info:
+  nom: STD23XXX - TD1
+  version: 1.0.0
+server:
+  url: https://localhost.std230xxx.com
+paths:
+  /customers:
+    get:
+      200:
+        application/json:
+          schema:
+            type: array
+            items: 
+              $ref: "#/components/schema/Customer"
+components:
+  schema:
+    Customer:
+      type: object
+      properties: 
+        name: 
+          type: string
+        age:
+          type: integer
