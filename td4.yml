@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: STD23000 - TD4
+  version: '1.0.3'
+servers:
+  - url: https://localhost.std230xxx.com
+paths:
+  /customers/{customerId}/orders:
+    get:
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: List of orders for a customer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reference:
+                  type: string
+                meals:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      mealId:
+                        type: string
+                      quantity:
+                        type: integer
+                orderDatetime:
+                  type: string
+                  format: date-time
+        required: true
+      responses:
+        201:
+          description: Created order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reference:
+                  type: string
+                meals:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      mealId:
+                        type: string
+                      quantity:
+                        type: integer
+                orderDatetime:
+                  type: string
+                  format: date-time
+        required: true
+      responses:
+        200:
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /orders/{orderId}:
+    get:
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Get order by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        reference:
+          type: string
+        meals:
+          type: array
+          items:
+            type: object
+            properties:
+              mealId:
+                type: string
+              quantity:
+                type: integer
+        orderDatetime:
+          type: string
+          format: date-time
