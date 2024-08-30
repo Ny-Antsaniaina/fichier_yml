@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: STD23000 - TD5
+  version: '1.0.3'
+servers:
+  - url: https://localhost.std230xxx.com
+paths:
+  /customers:
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                age:
+                  type: integer
+        required: true
+      responses:
+        200:
+          description: Partially updated customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
